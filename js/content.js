@@ -40,7 +40,7 @@ window.SITE = {
     // Shown under the top photo. Wrap words in *asterisks* to darken them.
     intro:
       "I build competition robots with *FTC 14607 Robot Uprising*, co-founded *Growing Up with Robotics* so thousands of younger students could learn to do the same, and spend whatever time is left on the *tennis court*.",
-    portrait: null, // e.g. "assets/me/portrait.jpg"
+    portrait: "assets/me/portrait.jpg",
     // Big photo at the top of the page.
     // Rotating photos at the top of the page, first one shows on load.
     // pos is the crop focus ("x% y%") when the photo is wider or taller than the frame.
@@ -125,7 +125,8 @@ window.SITE = {
         "Partners with schools and community centers to host multi-day robotics camps",
         "Reached 7,000+ students across five countries with a network of 110+ volunteer mentors",
         "Raised $19,500+ to keep every program free",
-        "[Add what you do week to week: running camps, training mentors, fundraising, partnerships]",
+        "Runs summer robotics camps with the youth group AYM, starting with 45 middle schoolers in August 2025",
+        "Plans lessons each week, reaches out to schools and partner nonprofits, and prepares kits for upcoming workshops and camps",
       ],
       details: [
         ["Founded", "2023"],
@@ -233,7 +234,24 @@ window.SITE = {
       "Built a network of 110+ volunteer mentors",
       "Raised $19,500+ to keep every program free",
     ] },
-    { date: "2026-08", type: "gur", title: "Robotics Camp 2", org: "Growing Up with Robotics", text: "[Add details about this camp: where, how many students, what they built.]", img: "assets/gur/img_6811.jpg" },
+    { date: "2026-08", type: "gur", title: "Summer Robotics Camp with AYM", org: "Growing Up with Robotics × AYM", img: "assets/gur/img_6811.jpg",
+    points: [
+      "Ran a four-evening robotics camp with the youth group AYM where middle schoolers used the engineering design process to solve a real task: getting a robot to find its own way along a path",
+      "Opened each night with a hands-on design challenge, from popsicle-stick and spaghetti-and-marshmallow towers to catapults, so campers practiced planning, building, testing and improving",
+      "Taught CAD, electronics and sensors, and programming, then had teams build LEGO SPIKE robots that follow a taped path with a color sensor",
+      "Ended with a final robot challenge where teams tested their designs and a winners reveal",
+      "Left campers with skills that carry into any team or classroom: breaking a big problem into steps, testing and debugging until something works, and collaborating under a deadline",
+    ] },
+    { date: "2026-03", type: "gur", title: "Online Programming Spring Camp", org: "Growing Up with Robotics",
+    points: [
+      "Ran a free week-long Python camp for K–8 students over spring break",
+      "Taught two hours of lessons a day, held office hours, and guided every student through a personal project in Google Classroom",
+    ] },
+    { date: "2026-02", type: "gur", title: "Freedom Hill Elementary Science Fair", org: "Growing Up with Robotics",
+    points: [
+      "Ran hands-on LEGO SPIKE Prime activities with 13 kits for elementary students and families",
+      "Talked with families about FIRST and how kids can join a robotics team",
+    ] },
     { date: "2026", end: "Present", type: "research", title: "Research Intern", org: "INOVA Health System, Vascular Division", place: "Fairfax, VA",
     points: [
       "Designing an ultrasound pipeline that combines a foundation model (USFM), MedSAM2 segmentation and attention-based multiple-instance learning to predict stroke risk",
@@ -327,7 +345,21 @@ window.SITE = {
     ] },
     { date: "[2016]", type: "tennis", title: "Junior training", org: "Courtplay Athletics", text: "Started training with Courtplay Athletics alongside other junior players.", img: "assets/tennis/03-courtplay-squad.jpg", imgPos: "50% 45%" },
     { date: "2013-10", type: "tennis", title: "Picked up a racket", text: "First time on a tennis court, at age 3, with a racket almost as big as I was.", img: "assets/tennis/01-age-3.jpg", imgPos: "50% 58%" },
-    { date: "2025-08", type: "gur", title: "First GUR summer camp", org: "Growing Up with Robotics", text: "[Camp details: where, how many students.]", img: "assets/gur/aymsummercampgroup.jpg" },
+    { date: "2025-08", type: "gur", title: "First Summer Robotics Camp with AYM", org: "Growing Up with Robotics × AYM", img: "assets/gur/aymsummercampgroup.jpg",
+    points: [
+      "Ran a four-evening robotics camp with the youth group AYM for 45 middle schoolers from Virginia, Maryland and North Carolina",
+      "Taught the engineering design process through one task: build a robot that drives itself through a maze",
+      "Covered CAD, electronics and sensors, and programming, so 12 teams could design, build and code their own LEGO SPIKE robots for a final maze competition",
+      "Gave campers skills that set them up to succeed on robotics teams and in STEM classes: planning before building, debugging step by step, and working as a team",
+    ] },
+    { date: "2023-10", end: "Present", type: "gur", title: "Community Outreach", org: "Growing Up with Robotics", place: "Northern Virginia and online",
+    points: [
+      "Runs LEGO and EV3 robot demos at STEAMOLOGY StemFest, reaching students from 91 schools",
+      "Taught structural design and introduced FIRST programs to underserved students through INMED engineering challenges",
+      "Hosted marshmallow-tower challenges, speed-CAD contests and block-coding demos at Durga Temple",
+      "Helped Weyanoke Elementary start two FIRST LEGO League teams",
+      "Teaches free online classes in CAD and robot programming to middle schoolers abroad, including in India",
+    ] },
     { date: "2023-09", end: "Present", type: "gur", title: "Co-Founder & Co-President", org: "Growing Up with Robotics", place: "Fairfax, VA", img: "assets/gur/fllmentoring.jpg",
     points: [
       "Co-founded a student-run nonprofit that began with two high schoolers teaching CAD to one middle schooler",
@@ -475,7 +507,7 @@ window.SITE = {
       ] },
     { title: "FTC Robot Software", category: "Engineering", year: "2025", text: "RoadRunner motion planning, a finite-state machine framework and OpenCV vision for FTC 14607.", img: "assets/ftc/robot-lab.jpg", href: null },
     { title: "GUR open curriculum", category: "Teaching", year: "2024", text: "Free courses in CAD, Python, C++ and embedded systems, taught by students for students.", img: "assets/gur/aymsummercamp.jpg", href: "https://www.growingupwithrobotics.org/" },
-    { title: "Robotics Camp curriculum", category: "Teaching", year: "2025", text: "[Multi-day camp program: what students build by the end.]", img: "assets/gur/img_6799.jpg", href: null },
+    { title: "Robotics Camp curriculum", category: "Teaching", year: "2025", text: "A four-day camp for middle schoolers built around one goal: a robot that solves a maze. Students learn the engineering design process, CAD, sensors and circuits, and programming with LEGO SPIKE kits, then compete with their Mazebots on the last day.", img: "assets/gur/img_6799.jpg", href: null },
     { title: "HeartHealth", category: "Software", year: "2022", text: "A CPR app born in quarantine. Winner of Rep. Don Beyer’s 2022 Congressional App Challenge (VA-08).", img: "assets/projects/hearthealth-house-of-code.jpg", href: "https://www.congressionalappchallenge.us/22-VA08/", linkLabel: "See our Congressional App Challenge winner page", yt: "CXremFhURvM",
       role: "", kicker: "Congressional App Challenge winner",
       body: [
