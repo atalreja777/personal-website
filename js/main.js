@@ -45,12 +45,49 @@
   /* ------------------------------------------------------------------ */
   /* Intro, numbers, about, recognition, contact                        */
   /* ------------------------------------------------------------------ */
+  // Hero: photos crossfade on a timer; click the photo or use the arrows to move
+  function renderHero(slides) {
+    const hero = $(".js-hero");
+    if (!slides.length) { hero.innerHTML = `<div class="media"></div>`; return; }
+    hero.innerHTML = `<div class="media hero">${slides
+      .map((s, i) => `<img class="hero__slide${i ? "" : " is-on"}" src="${esc(s.src)}" alt="${esc(s.cap || "")}" style="object-position:${esc(s.pos || "50% 50%")}${s.fit ? `;object-fit:${esc(s.fit)};background:#fff` : ""}"${i ? ` loading="lazy"` : ""}>`)
+      .join("")}<span class="hero__bar" aria-hidden="true"></span></div>
+      <figcaption class="hero__foot">
+        <span class="hero__cap" aria-live="polite">${t(slides[0].cap)}</span>
+        ${slides.length > 1 ? `<span class="hero__nav"><button type="button" data-d="-1" aria-label="Previous photo">&larr;</button><button type="button" data-d="1" aria-label="Next photo">&rarr;</button></span>` : ""}
+      </figcaption>`;
+    if (slides.length < 2) return;
+
+    const imgs = $$(".hero__slide", hero), cap = $(".hero__cap", hero), bar = $(".hero__bar", hero);
+    const HOLD = 3500;
+    let cur = 0, timer = null, paused = false;
+    const go = (n) => {
+      imgs[cur].classList.remove("is-on");
+      cur = (n + imgs.length) % imgs.length;
+      imgs[cur].classList.add("is-on");
+      cap.innerHTML = t(slides[cur].cap);
+      restart();
+    };
+    const restart = () => {
+      clearTimeout(timer);
+      bar.classList.remove("is-run"); void bar.offsetWidth;
+      if (paused || reduce) return;
+      bar.style.animationDuration = HOLD + "ms";
+      bar.classList.add("is-run");
+      timer = setTimeout(() => go(cur + 1), HOLD);
+    };
+    const pause = (v) => { paused = v; restart(); };
+    $(".media", hero).addEventListener("click", () => go(cur + 1));
+    $(".hero__nav", hero).addEventListener("click", (e) => { const b = e.target.closest("button"); if (b) go(cur + +b.dataset.d); });
+    hero.addEventListener("mouseenter", () => pause(true));
+    hero.addEventListener("mouseleave", () => pause(false));
+    document.addEventListener("visibilitychange", () => pause(document.hidden));
+    restart();
+  }
+
   function renderTop() {
     const p = S.person;
-    $(".js-hero").innerHTML = p.heroImage
-      ? `<div class="media"><img src="${esc(p.heroImage)}" alt="${esc(p.heroCaption || "")}"></div><figcaption>${t(p.heroCaption)}</figcaption>`
-      : `<div class="media"></div>`;
-    $(".js-hello").innerHTML = `Hi, I’m ${esc(p.first)}. ` + esc(p.intro).replace(/\*(.+?)\*/g, "<strong>$1</strong>");
+    renderHero(p.heroSlides || []);
     $(".js-intro-links").innerHTML =
       `<a class="lnk" href="#work" data-scroll>See my work</a><a class="lnk" href="#timeline" data-scroll>Timeline</a><a class="lnk" href="#contact" data-scroll>Get in touch</a>` +
       (p.resume ? `<a class="lnk" href="${esc(p.resume)}" target="_blank" rel="noopener">Résumé</a>` : `<span class="ph" title="Add person.resume in js/content.js">Résumé</span>`);
@@ -72,19 +109,6 @@
         <dl>${cw.completed.map(([k, list]) => `<div><dt>${t(k)}</dt><dd>${list.map(t).join("<br>")}</dd></div>`).join("")}</dl></div>`;
 
     $(".js-rec").innerHTML = (S.recognition || []).map((r) => `<li>${t(r)}</li>`).join("");
-
-    // quotes, one at a time
-    const qs = S.quotes || [];
-    $(".js-quotes").innerHTML = qs.map((q, i) => `<figure class="quote${i ? "" : " is-on"}"><blockquote>${t(q.text)}</blockquote><figcaption><b>${t(q.name)}</b> — ${t(q.role)}</figcaption></figure>`).join("");
-    $(".js-quote-dots").innerHTML = qs.length > 1 ? qs.map((q, i) => `<button type="button" aria-pressed="${!i}" data-q="${i}" aria-label="Quote ${i + 1}"></button>`).join("") : "";
-    let qi = 0;
-    const showQ = (i) => {
-      qi = i;
-      $$(".quote").forEach((el, k) => el.classList.toggle("is-on", k === i));
-      $$(".js-quote-dots button").forEach((b, k) => b.setAttribute("aria-pressed", String(k === i)));
-    };
-    $(".js-quote-dots").addEventListener("click", (e) => { const b = e.target.closest("button"); if (b) showQ(+b.dataset.q); });
-    if (qs.length > 1 && !reduce) setInterval(() => !document.hidden && showQ((qi + 1) % qs.length), 7000);
 
     // contact
     const mailOk = !isPh(p.email);
@@ -126,14 +150,13 @@
     const J = S.tennis;
     if (!J) return;
     const list = J.chapters.map((c) => (c.video ? { type: "video", src: c.video, poster: c.src, cap: clean(c.title) } : { src: c.src, cap: clean(c.title) }));
-    $(".js-jr-note").innerHTML = t(J.note);
     $(".js-jr-lead").innerHTML = t(J.lead);
     const track = $(".js-jr");
     track.innerHTML = J.chapters
       .map((c, i) => `<li class="jr">
           <button class="jr__media" type="button" data-i="${i}" aria-label="Enlarge: ${esc(clean(c.title))}">
             ${c.video
-              ? `<video src="${esc(c.video)}" poster="${esc(c.src)}" muted loop playsinline preload="metadata"></video><span class="shot__vid">VIDEO</span>`
+              ? `<video src="${esc(c.video)}" poster="${esc(c.src)}" muted loop playsinline preload="metadata"></video>`
               : `<img src="${esc(c.src)}" alt="${esc(clean(c.text))}" loading="lazy" decoding="async"${c.pos ? ` style="object-position:${esc(c.pos)}"` : ""}>`}
           </button>
           <p class="jr__when"><span class="jr__label">${t(c.when)}</span></p>
@@ -189,7 +212,7 @@
     grid.innerHTML = all
       .map((m, i) => `<button class="shot" type="button" data-i="${i}" data-act="${m.act.id}" aria-label="Enlarge: ${esc(m.cap || "photo")}">
         <img src="${esc(thumb(m))}" alt="" loading="lazy" decoding="async">
-        ${m.type === "video" ? '<span class="shot__vid">VIDEO</span>' : ""}
+        
         <span class="shot__cap">${esc(m.cap || "")}</span></button>`)
       .join("");
     const more = document.createElement("button");
@@ -397,7 +420,7 @@
     for (let i = 0; i < n; i++) {
       const m = r.media[i];
       shots.push(m
-        ? `<button class="shot" type="button" data-i="${i}" aria-label="Enlarge: ${esc(m.cap || "photo")}"><img src="${esc(thumb(m))}" alt="" loading="lazy" decoding="async">${m.type === "video" ? '<span class="shot__vid">VIDEO</span>' : ""}<span class="shot__cap">${esc(m.cap || "")}</span></button>`
+        ? `<button class="shot" type="button" data-i="${i}" aria-label="Enlarge: ${esc(m.cap || "photo")}"><img src="${esc(thumb(m))}" alt="" loading="lazy" decoding="async"><span class="shot__cap">${esc(m.cap || "")}</span></button>`
         : `<div class="shot is-empty"><span>Add photo<br>${esc(slotPath(r, i))}</span></div>`);
     }
     const meta = [["Role", r.role], ["Years", r.years], ["Where", r.place]].filter(([, v]) => v);
@@ -557,7 +580,6 @@
     gsap.from(".mast__name", { opacity: 0, letterSpacing: "0.6em", duration: 1.6, ease: "power3.out" });
     gsap.from(".nav", { opacity: 0, duration: 1, delay: 0.3 });
     gsap.fromTo(".intro__photo .media", { clipPath: "inset(0% 0% 100% 0%)" }, { clipPath: "inset(0% 0% 0% 0%)", duration: 1.4, ease: "power4.inOut", delay: 0.2 });
-    gsap.from(".intro__photo img", { scale: 1.12, duration: 2, ease: "power3.out", delay: 0.2 });
 
     // everything else fades up as it arrives
     const fade = (sel) => $$(sel).forEach((el) => gsap.from(el, { y: 36, opacity: 0, duration: 1, ease: "power3.out", scrollTrigger: { trigger: el, start: "top 88%" } }));

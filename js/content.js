@@ -22,8 +22,7 @@ window.SITE = {
     tagline: "Robots, the kids who learn to build them, and a tennis court in between.",
     // About section — one string per paragraph.
     about: [
-      "I'm a senior at Thomas Jefferson High School for Science and Technology in Northern Virginia. Most of my time goes into robotics: building competition robots with FTC Team 14607 Robot Uprising, and running Growing Up with Robotics, the nonprofit I co-founded in 2023 to teach younger students to do the same.",
-      "[A paragraph about what drives you: what you want to study, what you're looking for next, and what people should reach out to you about.]",
+      "I'm a senior at Thomas Jefferson High School for Science and Technology, passionate about solving problems at the intersection of hardware and software to help my community.",
     ],
     education: [
       { school: "Thomas Jefferson High School for Science and Technology", detail: "Class of 2027" },
@@ -43,12 +42,21 @@ window.SITE = {
       "I build competition robots with *FTC 14607 Robot Uprising*, co-founded *Growing Up with Robotics* so thousands of younger students could learn to do the same, and spend whatever time is left on the *tennis court*.",
     portrait: null, // e.g. "assets/me/portrait.jpg"
     // Big photo at the top of the page.
-    heroImage: "assets/ftc/states-team.jpg",
-    heroCaption: "FTC 14607 Robot Uprising at the Chesapeake State Championship",
+    // Rotating photos at the top of the page, first one shows on load.
+    // pos is the crop focus ("x% y%") when the photo is wider or taller than the frame.
+    heroSlides: [
+      { src: "assets/ftc/states-team.jpg", cap: "FTC 14607 Robot Uprising at the Chesapeake State Championship", pos: "50% 35%" },
+      { src: "assets/tennis/04-first-win.jpg", cap: "My first tournament win, with coaches Farshad Garakani and Michael Harper", pos: "55% 35%" },
+      { src: "assets/econ/va-state-champions.jpg", cap: "Virginia State Champions, National Economics Challenge", pos: "45% 60%" },
+      { src: "assets/projects/hearthealth-house-of-code.jpg", cap: "Presenting HeartHealth at #HouseOfCode in Washington, D.C.", pos: "55% 40%" },
+      { src: "assets/cpr/temple-compressions.jpg", cap: "Hands-only CPR training with Gwyneth’s Gift", pos: "50% 60%" },
+      { src: "assets/projects/ar-glasses-assembled.jpg", cap: "The AR glasses I’m building for AR PulseGuide", fit: "contain" },
+      { src: "assets/fll/fll-team.jpg", cap: "Where it started: FIRST LEGO League", pos: "50% 40%" },
+      { src: "assets/gur/aymsummercampgroup.jpg", cap: "A Growing Up with Robotics summer camp", pos: "50% 50%" },
+    ],
     email: "arnavt777@gmail.com",
     resume: null, // e.g. "assets/me/Arnav-Talreja-Resume.pdf"
     links: [
-      { label: "LinkedIn", href: "[https://linkedin.com/in/…]" },
       { label: "GitHub", href: "[https://github.com/…]" },
       { label: "Growing Up with Robotics", href: "https://www.growingupwithrobotics.org/" },
     ],
@@ -57,12 +65,6 @@ window.SITE = {
   // Shown in a row near the top: organizations, competitions, awards, press.
   recognition: ["FIRST Tech Challenge", "Chesapeake State Championship", "Growing Up with Robotics", "TJHSST", "Gwyneth’s Gift Foundation", "Congressional App Challenge", "National Economics Challenge", "National Personal Finance Challenge", "The Washington Post All-Met"],
 
-  // Quotes from mentors, coaches, teammates or parents.
-  quotes: [
-    { text: "[A sentence from a mentor or coach about working with you.]", name: "[Name]", role: "[Role, organization]" },
-    { text: "[A sentence from a GUR student or parent.]", name: "[Name]", role: "[Role]" },
-    { text: "[A sentence from a teammate or teacher.]", name: "[Name]", role: "[Role]" },
-  ],
 
 
   /* ---------------------------------------------------------------------
@@ -96,19 +98,11 @@ window.SITE = {
         ["Role", "Captain; previously Lead Programmer"],
         ["Awards", "State Motivate Award, 2x Regional Inspire Award, 3x Chesapeake State Finalist"],
       ],
-      slots: 12,
+      slots: 1,
       media: [
         { src: "assets/ftc/states-team.jpg", cap: "Chesapeake State Championship" },
-        { src: "assets/ftc/outreach-board.jpg", cap: "Robot Uprising display board" },
         { src: "assets/ftc/robot-demo.jpg", cap: "Showing kids the robot up close" },
-        { src: "assets/ftc/driver-practice.jpg", cap: "Driver practice" },
-        { src: "assets/ftc/strategy-whiteboard.jpg", cap: "Whiteboarding the next mechanism" },
-        { src: "assets/ftc/late-night-build.jpg", cap: "Late-night build session" },
         { type: "video", src: "assets/ftc/odometry-hold.mp4", poster: "assets/ftc/odometry-hold-poster.jpg", cap: "Odometry position hold: pushed off its mark, the robot drives back" },
-        { type: "video", src: "assets/ftc/robot-lab.mp4", poster: "assets/ftc/robot-lab.jpg", cap: "Robot on the practice field" },
-        { src: "assets/ftc/outreach-event.jpg", cap: "Community STEM night" },
-        { src: "assets/ftc/mentors-presenting.jpg", cap: "Team mentors presenting" },
-        { src: "assets/ftc/outreach-poster.jpg", cap: "Outreach poster" },
       ],
     },
     {
@@ -140,34 +134,11 @@ window.SITE = {
         ["Volunteer mentors", "110+"],
         ["Raised", "$19,500+, all programs free"],
       ],
-      slots: 24,
+      slots: 1,
       media: [
         { src: "assets/gur/aymsummercampgroup.jpg", cap: "Summer camp, full group" },
-        { src: "assets/gur/img_6927.jpg", cap: "Camp day, everyone in" },
-        { type: "video", src: "assets/gur/img_6896.mp4", poster: "assets/gur/img_6896-poster.jpg", cap: "Maze challenge" },
         { src: "assets/gur/img_6799.jpg", cap: "First robot builds" },
         { src: "assets/gur/fllmentoring.jpg", cap: "One-on-one FLL coaching" },
-        { src: "assets/gur/flltutor.jpg", cap: "FLL team before competition" },
-        { src: "assets/gur/aymsummercamp.jpg", cap: "CAD lecture, summer program" },
-        { type: "video", src: "assets/gur/img_6852.mp4", poster: "assets/gur/img_6852-poster.jpg", cap: "Test run" },
-        { src: "assets/gur/img_6872.jpg", cap: "Checking a student's build" },
-        { src: "assets/gur/img_6796.jpg", cap: "Kits out, day one" },
-        { src: "assets/gur/img_6248.jpg", cap: "Sorting parts" },
-        { src: "assets/gur/img_6811.jpg", cap: "Robotics Camp, day 2" },
-        { type: "video", src: "assets/gur/img_6871.mp4", poster: "assets/gur/img_6871-poster.jpg", cap: "Programming the drive" },
-        { src: "assets/gur/img_6821.jpg", cap: "Line-follower" },
-        { src: "assets/gur/img_6853.jpg", cap: "Huddle around the laptop" },
-        { src: "assets/gur/img_6908.jpg", cap: "Debugging together" },
-        { src: "assets/gur/img_6792.jpg", cap: "Block code to motion" },
-        { type: "video", src: "assets/gur/img_6894.mp4", poster: "assets/gur/img_6894-poster.jpg", cap: "Camp floor" },
-        { src: "assets/gur/img_6878.jpg", cap: "Afternoon session" },
-        { src: "assets/gur/img_6267.jpg", cap: "Outreach table" },
-        { src: "assets/gur/gur_9c2d6025.jpg", cap: "LEGO workshop" },
-        { src: "assets/gur/gur_5eff0633.jpg", cap: "Classroom session" },
-        { src: "assets/gur/img_9084.jpg", cap: "Mentoring in CAD" },
-        { type: "video", src: "assets/gur/img_6926.mp4", poster: "assets/gur/img_6926-poster.jpg", cap: "Group photo" },
-        { src: "assets/gur/guestspeaker.jpg", cap: "Virtual guest talk" },
-        { src: "assets/gur/teammeetings.jpg", cap: "Weekly planning session" },
       ],
     },
     {
@@ -210,8 +181,8 @@ window.SITE = {
     chapters: [
       { when: "Age 3", title: "First swings", text: "My first time on a court, with a racket almost as big as I was.", video: "assets/tennis/01-age-3.mp4", src: "assets/tennis/01-age-3-poster.jpg" },
       { when: "2014", title: "Indoor lessons", text: "Learning to turn, swing, and actually follow through.", video: "assets/tennis/02-indoor-lessons.mp4", src: "assets/tennis/02-indoor-lessons-poster.jpg" },
-      { when: "Juniors", title: "Courtplay Athletics", text: "Training alongside other junior players with Coach [Name].", src: "assets/tennis/03-courtplay-squad.jpg", pos: "50% 60%" },
-      { when: "First win", title: "A trophy, finally", text: "My first tournament win, with my two coaches.", src: "assets/tennis/04-first-win.jpg", pos: "55% 50%" },
+      { when: "Juniors", title: "Courtplay Athletics", text: "Training alongside other junior players with Coach Farshad Garakani.", src: "assets/tennis/03-courtplay-squad.jpg", pos: "50% 60%" },
+      { when: "First win", title: "A trophy, finally", text: "My first tournament win, with my coaches Farshad Garakani and Michael Harper.", src: "assets/tennis/04-first-win.jpg", pos: "55% 50%" },
       { when: "Every season", title: "Under the lights", text: "Practice didn't stop when the sun went down.", src: "assets/tennis/05-night-practice.jpg", pos: "20% 45%" },
       { when: "Growing up", title: "Building a forehand", text: "Hours of drilling the forehand, one basket of balls at a time.", src: "assets/tennis/06-indoor-forehand.jpg", pos: "40% 50%" },
       { when: "Summer 2023", title: "Hard courts", text: "Long summer sessions on outdoor courts.", video: "assets/tennis/07-summer-outdoors.mp4", src: "assets/tennis/07-summer-outdoors-poster.jpg" },
@@ -262,7 +233,7 @@ window.SITE = {
       "Built a network of 110+ volunteer mentors",
       "Raised $19,500+ to keep every program free",
     ] },
-    { date: "2025-08", type: "gur", title: "Robotics Camp 2", org: "Growing Up with Robotics", text: "[Add details about this camp: where, how many students, what they built.]", img: "assets/gur/img_6811.jpg" },
+    { date: "2026-08", type: "gur", title: "Robotics Camp 2", org: "Growing Up with Robotics", text: "[Add details about this camp: where, how many students, what they built.]", img: "assets/gur/img_6811.jpg" },
     { date: "2026", end: "Present", type: "research", title: "Research Intern", org: "INOVA Health System, Vascular Division", place: "Fairfax, VA",
     points: [
       "Designing an ultrasound pipeline that combines a foundation model (USFM), MedSAM2 segmentation and attention-based multiple-instance learning to predict stroke risk",
@@ -304,7 +275,7 @@ window.SITE = {
       "Named Washington Post All-Met in 2024 and 2025",
       "2x VHSL Class 6 All-State, 2x All-Region, 3x District Player of the Year and Varsity MVP",
     ] },
-    { date: "[2017]", type: "tennis", title: "First tournament win", text: "My first win, celebrated with the two coaches who got me there.", img: "assets/tennis/04-first-win.jpg", imgPos: "50% 40%" },
+    { date: "[2017]", type: "tennis", title: "First tournament win", text: "My first win, celebrated with Farshad Garakani and Michael Harper, the two coaches who got me there.", img: "assets/tennis/04-first-win.jpg", imgPos: "50% 40%" },
     { date: "2022", type: "award", title: "Winner, Congressional App Challenge", org: "Rep. Don Beyer, VA-08", place: "Washington, D.C.", img: "assets/projects/hearthealth-house-of-code.jpg", imgPos: "55% 40%", yt: "CXremFhURvM",
     points: [
       "Started CPR/AED trainings at Longfellow Middle School after a neighbor’s preventable death from a delayed cardiac arrest response",
@@ -356,7 +327,7 @@ window.SITE = {
     ] },
     { date: "[2016]", type: "tennis", title: "Junior training", org: "Courtplay Athletics", text: "Started training with Courtplay Athletics alongside other junior players.", img: "assets/tennis/03-courtplay-squad.jpg", imgPos: "50% 45%" },
     { date: "2013-10", type: "tennis", title: "Picked up a racket", text: "First time on a tennis court, at age 3, with a racket almost as big as I was.", img: "assets/tennis/01-age-3.jpg", imgPos: "50% 58%" },
-    { date: "[2024-06]", type: "gur", title: "First GUR summer camp", org: "Growing Up with Robotics", text: "[Camp details: where, how many students.]", img: "assets/gur/aymsummercampgroup.jpg" },
+    { date: "2025-08", type: "gur", title: "First GUR summer camp", org: "Growing Up with Robotics", text: "[Camp details: where, how many students.]", img: "assets/gur/aymsummercampgroup.jpg" },
     { date: "2023-09", end: "Present", type: "gur", title: "Co-Founder & Co-President", org: "Growing Up with Robotics", place: "Fairfax, VA", img: "assets/gur/fllmentoring.jpg",
     points: [
       "Co-founded a student-run nonprofit that began with two high schoolers teaching CAD to one middle schooler",
@@ -419,7 +390,7 @@ window.SITE = {
       "Coordinates volunteers and teaches hands-on CPR alongside instructors, reaching 7,000+ students",
       "Upcoming: expanding the Longfellow model to more FCPS middle schools, working with local officials to bring CPR/AED training to every middle school in the region",
     ],
-    highlight: "In March 2025, three Longfellow eighth graders used the CPR they learned in these trainings to save a classmate’s father after he went into cardiac arrest on a Scouts trip. His chance of survival was about 5%. He is expected to make a full recovery.",
+    highlight: "In March 2025, three Longfellow eighth graders used the CPR they learned in these trainings to save a classmate’s father after he went into cardiac arrest on a Scouts trip. His chance of survival was about 5%, but because they started CPR in time, he is fine today.",
     link: { label: "Read the FCPS story", href: "https://longfellowms.fcps.edu/node/7369" },
     media: [
       { type: "video", src: "assets/cpr/temple-compressions.mp4", poster: "assets/cpr/temple-compressions-poster.jpg", cap: "Community CPR training at a local temple" },

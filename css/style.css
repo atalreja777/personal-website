@@ -39,7 +39,7 @@ h1, h2, h3, p, figure, dl, dd, blockquote { margin: 0; }
 .ph { color: var(--grey); text-decoration: underline dotted #b9b9b9 1px; text-underline-offset: .25em; }
 
 /* small uppercase label, Pascal-style tag */
-.tag { display: inline-block; font-family: var(--sans); font-weight: 600; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; background: var(--soft); padding: 6px 10px 5px; line-height: 1.2; }
+.tag { display: inline-block; font-family: var(--sans); font-weight: 600; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: var(--grey); line-height: 1.2; }
 .tag--center { display: table; margin: 0 auto; }
 .lnk { text-decoration: none; background: linear-gradient(currentColor, currentColor) 0 100% / 100% 1px no-repeat; padding-bottom: 2px; transition: background-size .45s var(--ease); }
 .lnk:hover { background-size: 0 1px; background-position: 100% 100%; }
@@ -382,3 +382,16 @@ h1, h2, h3, p, figure, dl, dd, blockquote { margin: 0; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; }
 }
+
+/* Hero slideshow */
+.hero { position: relative; cursor: pointer; }
+.intro__photo .hero__slide { position: absolute; inset: 0; opacity: 0; transform: scale(1.06); transition: opacity .9s var(--ease), transform 5s linear; }
+.intro__photo .hero__slide.is-on { opacity: 1; transform: scale(1); }
+.hero__bar { position: absolute; left: 0; bottom: 0; height: 2px; width: 100%; background: rgba(255, 255, 255, .85); transform: scaleX(0); transform-origin: left; }
+.hero__bar.is-run { animation: hero-bar linear forwards; }
+@keyframes hero-bar { to { transform: scaleX(1); } }
+.intro__photo .hero__foot { display: flex; justify-content: flex-end; align-items: baseline; gap: 24px; }
+.hero__nav { display: flex; gap: 4px; font-style: normal; }
+.hero__nav button { background: none; border: 0; padding: 2px 6px; font: inherit; font-size: 17px; color: var(--grey); cursor: pointer; transition: color .2s; }
+.hero__nav button:hover, .hero__nav button:focus-visible { color: var(--ink); }
+@media (prefers-reduced-motion: reduce) { .intro__photo .hero__slide { transition: opacity .3s; transform: none; } }
