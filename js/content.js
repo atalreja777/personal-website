@@ -149,7 +149,6 @@ window.SITE = {
       role: "Research Intern",
       years: "2024 – Present",
       place: "Northern Virginia",
-      summary: "Medical machine learning and imaging research on stroke risk, heart failure and vascular treatment outcomes, building on algorithms research at George Mason University.",
       body: [],
       points: [
         "Designing an ultrasound pipeline at INOVA that combines a foundation model (USFM), MedSAM2 segmentation and attention-based multiple-instance learning to predict stroke risk",
@@ -202,7 +201,7 @@ window.SITE = {
     points: [
       "Captains the FTC robotics team and the varsity tennis team",
       "Conducts research at INOVA Health System and Virginia Commonwealth University",
-      "Builds HeartHealth, AR PulseGuide and the Hospital Price Transparency Platform",
+      "Builds CPR360, AR PulseGuide and the Hospital Price Transparency Platform",
     ] },
     { date: "2026-05", type: "award", title: "National Finalist, 5th Place", org: "National Economics Challenge", place: "Atlanta, GA",
     points: [
@@ -301,10 +300,20 @@ window.SITE = {
       "Developed HeartHealth, a React Native/Expo cardiac emergency response app focused on CPR intervention",
       "Built the first online, crowdsourced AED database, letting users register AEDs with photos, access details and verification status",
       "Selected by Rep. Don Beyer as Virginia’s 8th District winner and presented the app at #HouseOfCode in Washington, D.C.",
+      "Later rebuilt it from the ground up into CPR360, now free on the App Store",
     ],
       features: ["Hands-free CPR guidance with voice narration", "100 BPM compression metronome and CPR timer", "One-tap 911 and GPS alerts", "Crowdsourced AED map with Apple/Google Maps navigation", "Pediatric CPR modes and offline caching"],
       builtWith: "JavaScript, React Native, Expo",
       link: { label: "Our Congressional App Challenge page", href: "https://www.congressionalappchallenge.us/22-VA08/" } },
+    { date: "2026", end: "Present", type: "project", title: "CPR360", org: "CPR coach & AED finder, on the App Store", img: "assets/projects/cpr360-hero.jpg",
+    points: [
+      "Rebuilt HeartHealth from the ground up into CPR360, a free iPhone and iPad app for the bystander who happens to be there when someone collapses, now live on the App Store",
+      "Built an SOS CPR coach: a full-screen compression metronome with a calm voice that says what to do next, in Adult, Child and Infant modes, working with no signal and no account",
+      "Added one-tap emergency alerts that text chosen contacts a pre-filled message with the rescuer’s location, then open the dialer for 911",
+      "Grew the crowdsourced AED database into a map and list of nearby AEDs, cached for offline use, where users add AEDs with a live photo, tap “Still here” to keep pins current or report them missing, with a moderator check before anything goes live",
+      "Created a short interactive 3D CPR lesson that shows compressions more clearly than standard 2D demonstrations, plus a five-step AED guide and a moderated community for sharing AED locations and local trainings",
+    ],
+    link: { label: "Download CPR360 on the App Store", href: "https://apps.apple.com/us/app/cpr360/id6797158944" } },
     { date: "2026", end: "Present", type: "project", title: "Hospital Price Transparency Platform", org: "Independent project",
     points: [
       "Built a breadth-first web crawler that finds and downloads Virginia hospitals’ machine-readable standard-charge files (45 CFR 180), parsing multi-GB CSV/JSON files",
@@ -508,6 +517,7 @@ window.SITE = {
     { title: "FTC Robot Software", category: "Engineering", year: "2025", text: "RoadRunner motion planning, a finite-state machine framework and OpenCV vision for FTC 14607.", img: "assets/ftc/robot-lab.jpg", href: null },
     { title: "GUR open curriculum", category: "Teaching", year: "2024", text: "Free courses in CAD, Python, C++ and embedded systems, taught by students for students.", img: "assets/gur/aymsummercamp.jpg", href: "https://www.growingupwithrobotics.org/" },
     { title: "Robotics Camp curriculum", category: "Teaching", year: "2025", text: "A four-day camp for middle schoolers built around one goal: a robot that solves a maze. Students learn the engineering design process, CAD, sensors and circuits, and programming with LEGO SPIKE kits, then compete with their Mazebots on the last day.", img: "assets/gur/img_6799.jpg", href: null },
+    { title: "CPR360", category: "Software", year: "2026", text: "HeartHealth, rebuilt from the ground up: a CPR coach and AED finder for whoever is there when someone collapses. Free on the App Store.", img: "assets/projects/cpr360-hero.jpg", href: "https://apps.apple.com/us/app/cpr360/id6797158944", external: true },
     { title: "HeartHealth", category: "Software", year: "2022", text: "A CPR app born in quarantine. Winner of Rep. Don Beyer’s 2022 Congressional App Challenge (VA-08).", img: "assets/projects/hearthealth-house-of-code.jpg", href: "https://www.congressionalappchallenge.us/22-VA08/", linkLabel: "See our Congressional App Challenge winner page", yt: "CXremFhURvM",
       role: "", kicker: "Congressional App Challenge winner",
       body: [
@@ -515,9 +525,10 @@ window.SITE = {
         "Then quarantine hit and the trainings stopped. Even though I couldn’t hold them in person, it opened up new paths: the chance to scale my audience to more communities through new methods. I used that time to teach myself mobile app development in JavaScript and React.",
         "HeartHealth was the result: a rudimentary app with a focus on CPR intervention, built around an open-source AED database, an emergency CPR walkthrough, and a CPR education platform.",
         "Rep. Don Beyer selected HeartHealth as the winner of his 2022 Congressional App Challenge for Virginia’s 8th District, and we presented it at #HouseOfCode in Washington, D.C., answering questions about the app’s purpose, how I picked up app development in quarantine, and how we built it in React.",
+        "I have since rebuilt HeartHealth from the ground up into CPR360, now free on the App Store.",
       ],
       features: ["Open-source AED database", "Emergency CPR walkthrough", "CPR education platform"],
       builtWith: "JavaScript, React",
-      details: [["Award", "Winner, 2022 Congressional App Challenge (VA-08)"], ["Selected by", "Rep. Don Beyer"], ["Shown at", "#HouseOfCode, Washington, D.C."]] },
+      details: [["Award", "Winner, 2022 Congressional App Challenge (VA-08)"], ["Selected by", "Rep. Don Beyer"], ["Shown at", "#HouseOfCode, Washington, D.C."], ["Today", "Rebuilt as CPR360, now on the App Store"]] },
   ],
 };

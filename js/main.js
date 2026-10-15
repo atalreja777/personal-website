@@ -136,7 +136,7 @@
         return `<a class="card" href="#view/${a.id}">
           <div class="card__media${cover ? "" : " is-empty"}">${cover ? `<img src="${esc(thumb(cover))}" alt="" loading="lazy" decoding="async">` : `<span>Cover photo<br>${esc(slotPath(a, 0))}</span>`}</div>
           <div class="card__cap"><span class="card__title">${t(a.title)}</span><span class="card__role">${t(a.kicker)}</span></div>
-          <p class="card__sum">${t(a.summary)}</p>
+          ${a.summary ? `<p class="card__sum">${t(a.summary)}</p>` : ""}
           <span class="card__more lnk">${a.media.length ? `View ${a.media.length} photos & story` : "Open"}</span>
         </a>`;
       })
@@ -305,6 +305,7 @@
   const projectPage = (p, i) => ({
     id: `p${i + 1}`,
     isProject: true,
+    external: p.external,
     title: p.title,
     kicker: p.kicker || p.category,
     role: p.role === undefined ? "[Your role]" : p.role,
@@ -331,11 +332,11 @@
       cats.map((c) => `<button type="button" data-cat="${esc(c)}" aria-pressed="false">${esc(c)}<sup>${S.projects.filter((p) => p.category === c).length}</sup></button>`).join("");
     $(".js-proj-list").innerHTML = S.projects
       .map((p, i) => `<li class="prow" data-cat="${esc(p.category)}">
-          <a href="#view/p${i + 1}" ${p.img ? `data-img="${esc(p.img)}"` : ""}>
+          <a href="${p.external ? esc(p.href) : `#view/p${i + 1}`}"${p.external ? ' target="_blank" rel="noopener"' : ""} ${p.img ? `data-img="${esc(p.img)}"` : ""}>
             <span class="prow__title">${t(p.title)}<span class="prow__text">${t(p.text)}</span></span>
             <span class="prow__cat">${esc(p.category)}</span>
             <span class="prow__year">${t(p.year)}</span>
-            <span class="prow__arrow" aria-hidden="true">→</span>
+            <span class="prow__arrow" aria-hidden="true">${p.external ? "↗" : "→"}</span>
           </a></li>`)
       .join("");
     $(".js-proj-filters").addEventListener("click", (ev) => {
@@ -391,8 +392,9 @@
   const pageInner = $(".js-detail-inner");
   let current = null, returnFocus = null, lenis = null;
 
-  const pages = () => [...S.activities, ...S.projects.map(projectPage)];
-  const siblings = (r) => (r.isProject ? S.projects.map(projectPage) : S.activities);
+  const projectPages = () => S.projects.map(projectPage).filter((r) => !r.external);
+  const pages = () => [...S.activities, ...projectPages()];
+  const siblings = (r) => (r.isProject ? projectPages() : S.activities);
   const mediaEl = (m, autoplay) =>
     m.type === "video"
       ? `<video src="${esc(m.src)}" poster="${esc(m.poster || "")}" muted loop playsinline ${autoplay ? "autoplay" : 'preload="none"'}></video>`
@@ -436,7 +438,7 @@
       </header>
       <figure class="dt-hero"><div class="media">${hero ? mediaEl(hero, true) : `<span>Lead photo · ${esc(slotPath(r, 0))}</span>`}</div></figure>
       <section class="dt-body">
-        <p class="dt-summary">${t(r.summary)}</p>
+        ${r.summary ? `<p class="dt-summary">${t(r.summary)}</p>` : ""}
         <div class="dt-text">${(r.body || []).map((p) => `<p>${t(p)}</p>`).join("")}</div>
         ${pointList(r.points, "dt-points")}
         ${r.yt ? ytCard(r.yt, `Watch the ${clean(r.title)} demo`, "dt-yt", r.media[0] && thumb(r.media[0])) : ""}
