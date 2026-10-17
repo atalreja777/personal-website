@@ -50,10 +50,11 @@ window.SITE = {
       { src: "assets/early/first-tennis-trophy.jpg", cap: "An early tennis trophy", pos: "50% 35%" },
       { src: "assets/econ/va-state-champions.jpg", cap: "With our teacher after winning the Virginia Economics Challenge", pos: "45% 60%" },
       { src: "assets/early/infinite-overload.jpg", cap: "Team Infinite Overload, my first FTC team", pos: "50% 40%" },
-      { src: "assets/early/meeting-a-pro.jpg", cap: "Meeting a tour pro after his match", pos: "50% 35%" },
+      { src: "assets/early/meeting-a-pro.jpg", cap: "Meeting Nick Kyrgios", pos: "50% 35%" },
       { src: "assets/projects/hearthealth-house-of-code.jpg", cap: "Presenting HeartHealth at #HouseOfCode in Washington, D.C.", pos: "55% 40%" },
       { src: "assets/early/jhu-cty.jpg", cap: "Johns Hopkins Center for Talented Youth awards ceremony", pos: "50% 45%" },
       { src: "assets/cpr/temple-compressions.jpg", cap: "Hands-only CPR training with Gwyneth’s Gift", pos: "50% 60%" },
+      { src: "assets/cpr/cpr-training-gym.jpg", cap: "Setting up a Gwyneth’s Gift CPR training" },
       { src: "assets/early/swim-meet.jpg", cap: "Swim meet ribbons", pos: "50% 55%" },
       { src: "assets/tennis/tournament-award.jpg", cap: "Tournament award", pos: "50% 45%" },
       { src: "assets/projects/ar-glasses-assembled.jpg", cap: "The AR glasses I’m building for AR PulseGuide", fit: "contain" },
@@ -74,6 +75,55 @@ window.SITE = {
   recognition: ["FIRST Tech Challenge", "Chesapeake State Championship", "Growing Up with Robotics", "TJHSST", "Gwyneth’s Gift Foundation", "Congressional App Challenge", "National Economics Challenge", "National Personal Finance Challenge", "The Washington Post All-Met"],
 
 
+
+  /* ---------------------------------------------------------------------
+     CPR & GWYNETH'S GIFT — the story section right after About.
+     Steps run oldest to newest; `phase` labels the stage of the story.
+     The full details still live in the timeline.
+     --------------------------------------------------------------------- */
+  cpr: {
+    title: "CPR & Gwyneth’s Gift",
+    lead: "When my neighbor Gwyneth went into cardiac arrest at school, no one around her knew CPR. She died days later from an anoxic brain injury. My family did not want her story to repeat, so we started teaching CPR across our community. Each training showed me what one room of trained people can do, and how many people never make it into that room. Through technology, I’ve been able to increase CPR awareness, share lifesaving knowledge, and make CPR instruction more effective.",
+    stats: [
+      ["10,000+", "Community members trained in CPR"],
+      ["1,000+", "Longfellow students trained in CPR every year"],
+      ["1st", "HEARTSafe middle school in Fairfax County Public Schools"],
+      ["1", "Life saved by students we trained"],
+    ],
+    steps: [
+      { phase: "Why it started", when: "2019", title: "Gwyneth’s story",
+        text: "Gwyneth went into cardiac arrest at school and no one around her knew CPR. I started working with her family’s foundation, Gwyneth’s Gift, as a Northern Virginia Community Ambassador so that the next time someone collapses, the people nearby know what to do.",
+        img: "assets/cpr/longfellow-gwyneths-parents.jpg", cap: "Gwyneth’s parents speak to Longfellow students (photo: FCPS)" },
+      { phase: "In person", when: "2019 – Present", title: "Training our community, starting at Longfellow",
+        text: "I worked with Gwyneth’s family and local fire departments to organize CPR training events across our community, training over 10,000 people. At Longfellow Middle School I organized the first CPR/AED trainings, making it the first HEARTSafe middle school in FCPS, and turned them into a yearly program where every student learns CPR, more than 1,000 students every year, with over 1,000 trained in a single day. FCPS featured the program and my work on it in “Lifesaving Lessons Learned at Longfellow Middle School.”",
+        img: "assets/cpr/longfellow-hands-only-cpr.jpg", cap: "Longfellow students learn hands-only CPR (photo: FCPS)",
+        link: { label: "Read the FCPS feature", href: "https://longfellowms.fcps.edu/features/lifesaving-lessons-learned-longfellow-middle-school", external: true } },
+      { phase: "In code", when: "2020 – 2022", title: "Reaching the people we couldn’t train",
+        text: "With every training we organized, I realized there were thousands of others we couldn’t reach. To bridge the gap, I taught myself mobile development and built HeartHealth, an online platform with a crowdsourced AED database and a 5-step emergency CPR walk-through that automatically dials 911. Rep. Don Beyer named it the winner of the 2022 Congressional App Challenge for VA-08, and I presented it at #HouseOfCode in Washington, D.C.",
+        img: "assets/projects/hearthealth-house-of-code.jpg", cap: "Presenting HeartHealth at #HouseOfCode",
+        link: { label: "HeartHealth", href: "#view/p10" } },
+      { phase: "The proof", when: "March 2025", title: "Three Longfellow students save a life", story: true,
+        text: "Three eighth graders used the CPR they learned in our trainings to save a classmate’s father after he went into cardiac arrest on a Scouts trip. His chance of survival was about 5%. Because they started CPR in time, he is fine today. It is exactly what didn’t happen for Gwyneth.",
+        img: "assets/cpr/fcps-cpr-story.jpg", cap: "The three students (photo: FCPS)",
+        link: { label: "Read the FCPS story", href: "https://longfellowms.fcps.edu/node/7369", external: true } },
+      { phase: "In code", when: "2026", title: "CPR360, free on the App Store",
+        text: "I rebuilt HeartHealth from the ground up for whoever happens to be there when someone collapses: a full-screen CPR coach with a calm voice and compression metronome, one-tap alerts that text your location and open the dialer for 911, and a map of nearby AEDs that works with no signal.",
+        img: "assets/projects/cpr360-hero.jpg", contain: true, cap: "CPR360",
+        link: { label: "Get CPR360", href: "https://apps.apple.com/us/app/cpr360/id6797158944", external: true } },
+      { phase: "In code", when: "2026", title: "AR PulseGuide",
+        text: "Most people freeze because they aren’t sure where their hands go. AR PulseGuide uses the iPhone’s camera and depth sensor to mark exactly where to check a pulse and place your hands on a real person, then corrects you in real time instead of teaching passively.",
+        img: "assets/projects/arpulse-demo-1.jpg", cap: "Live demo",
+        link: { label: "AR PulseGuide", href: "#view/p5" } },
+      { phase: "In hardware", when: "2026", title: "My own AR glasses",
+        text: "A rescuer shouldn’t have to hold a phone. I’m fabricating augmented-reality glasses so the guidance runs hands-free, with both hands on the chest and 911 a voice command away.",
+        img: "assets/projects/ar-glasses-assembled.jpg", contain: true, cap: "Assembled glasses" },
+      { phase: "Back in person", when: "September 2026", title: "Taking it beyond school",
+        text: "CPR is a skill everyone should know, so I’ve taken the trainings to a local temple and community centers, including a full-room session where everyone practiced hands-only CPR.",
+        img: "assets/cpr/temple-compressions.jpg", cap: "Community training at a local temple" },
+      { phase: "Next", when: "Upcoming", title: "Every middle school in the region",
+        text: "I’m working with local officials to bring the Longfellow model of CPR/AED training to every FCPS middle school, so every student knows what to do when it counts." },
+    ],
+  },
 
   /* ---------------------------------------------------------------------
      ACTIVITIES — each one gets its own section on the home page and
@@ -210,7 +260,7 @@ window.SITE = {
   gallery: [
     { id: "early", title: "Growing up", media: [
       { src: "assets/early/first-tennis-trophy.jpg", cap: "An early tennis trophy" },
-      { src: "assets/early/meeting-a-pro.jpg", cap: "Meeting a tour pro" },
+      { src: "assets/early/meeting-a-pro.jpg", cap: "Meeting Nick Kyrgios" },
       { src: "assets/early/jhu-cty.jpg", cap: "Johns Hopkins CTY awards ceremony", wide: true },
       { src: "assets/early/swim-meet.jpg", cap: "Swim meet ribbons" },
       { src: "assets/early/skiing.jpg", cap: "On the slopes" },
@@ -366,7 +416,7 @@ window.SITE = {
     { date: "[2017]", type: "tennis", title: "First tournament win", text: "My first win, celebrated with Farshad Garakani and Michael Harper, the two coaches who got me there.", img: "assets/tennis/04-first-win.jpg", imgPos: "50% 40%" },
     { date: "2022", type: "award", title: "Winner, Congressional App Challenge", org: "Rep. Don Beyer, VA-08", place: "Washington, D.C.", img: "assets/projects/hearthealth-house-of-code.jpg", imgPos: "55% 40%", yt: "CXremFhURvM",
     points: [
-      "Started CPR/AED trainings at Longfellow Middle School after a neighbor’s preventable death from a delayed cardiac arrest response",
+      "Started CPR/AED trainings at Longfellow Middle School after our neighbor Gwyneth went into cardiac arrest at school, where no one knew CPR",
       "Learned mobile app development during quarantine, when in-person trainings stopped, to scale CPR access to more communities",
       "Developed HeartHealth, a React Native/Expo cardiac emergency response app focused on CPR intervention",
       "Built the first online, crowdsourced AED database, letting users register AEDs with photos, access details and verification status",
@@ -497,9 +547,10 @@ window.SITE = {
     { date: "2019-08", end: "Present", type: "service", title: "Northern VA Community Ambassador", org: "Gwyneth’s Gift Foundation", place: "McLean, VA",
     points: [
       "Organized the first CPR/AED trainings at Longfellow Middle School, making it the first HEARTSafe middle school in all of Fairfax County Public Schools",
-      "Turned it into a yearly program: every Longfellow student now learns hands-only CPR and how to use an AED, including a record 1,000 students in a single year",
+      "Turned it into a yearly program: every Longfellow student now learns hands-only CPR and how to use an AED, more than 1,000 students every year",
+      "Featured by FCPS in “Lifesaving Lessons Learned at Longfellow Middle School” for building awareness of Gwyneth’s story",
       "Expands the trainings beyond school to a local temple and community centers, because CPR is a lifesaving skill everyone should know; hosted a full-room community session at a local temple in September 2026",
-      "Coordinates volunteers and teaches hands-on CPR alongside instructors, reaching 7,000+ students",
+      "Coordinates volunteers and teaches hands-on CPR alongside instructors, training 10,000+ community members with Gwyneth’s family and local fire departments",
       "Upcoming: expanding the Longfellow model to more FCPS middle schools, working with local officials to bring CPR/AED training to every middle school in the region",
     ],
     highlight: "In March 2025, three Longfellow eighth graders used the CPR they learned in these trainings to save a classmate’s father after he went into cardiac arrest on a Scouts trip. His chance of survival was about 5%, but because they started CPR in time, he is fine today.",
@@ -561,8 +612,8 @@ window.SITE = {
      category: Research | Engineering | Teaching | Software
      --------------------------------------------------------------------- */
   projects: [
-    { title: "Endovascular Treatments for Limb-Threatening PAD", category: "Research", year: "2026", text: "Co-authored study of 26,249 Medicare patients, submitted to the Journal of Vascular Surgery.", img: null, href: null },
-    { title: "Beds & Balance: Mitigating the Risks of U.S. Prison Overcrowding", category: "Research", year: "2026", text: "Modeling the Future Challenge national finalist: a stochastic model of prison overcrowding risk and the policies that reduce it.", img: "assets/research/Talreja_Arnav_2026MTFC_Paper.jpg", href: "assets/research/Talreja_Arnav_2026MTFC_Paper.pdf", linkLabel: "Read the full paper (PDF)",
+    { title: "Endovascular Treatments for Limb-Threatening PAD", category: "Research", year: "2026", text: "Co-authored study of 26,249 Medicare patients, submitted to the Journal of Vascular Surgery.", img: null, tile: "26,249 Medicare patients", href: null },
+    { title: "Beds & Balance: Mitigating the Risks of U.S. Prison Overcrowding", category: "Research", year: "2026", text: "Modeling the Future Challenge national finalist: a stochastic model of prison overcrowding risk and the policies that reduce it.", img: "assets/research/Talreja_Arnav_2026MTFC_Paper.jpg", tile: "96% chance of overcrowding within a year", href: "assets/research/Talreja_Arnav_2026MTFC_Paper.pdf", linkLabel: "Read the full paper (PDF)",
       kicker: "Modeling the Future Challenge, national finalist", role: "",
       body: ["U.S. jail and prison admissions have rebounded since COVID and are growing faster than capacity. Our team asked how likely a correctional system is to exceed safe capacity over the next 3, 5 and 10 years, and which policies reduce that risk most cost-effectively."],
       points: ["Investigated how likely U.S. correctional systems are to run out of safe capacity over the next 3, 5 and 10 years as admissions rebound after COVID, and which policies reduce that risk most cost-effectively", "Modeled how people enter and leave custody using 54 years of national data, then simulated thousands of possible futures to measure the risk", "Found overcrowding is close to certain without action, a 96% chance of exceeding capacity within a year, driven by everyday crowding rather than rare crises", "Showed that diverting people before admission is the most effective fix, cutting excess bed-days by more than half, and proposed financial safeguards that automatically add medical and staffing capacity during surges"],
@@ -579,7 +630,7 @@ window.SITE = {
       ],
       body: ["Modern scheduling systems use offline algorithms that need the whole dataset up front, which wastes time for both clients and administrators. Our team built an online system that gets better with every request."],
       details: [["Program", "Aspiring Scientists Summer Internship Program, Department of Computer Science, George Mason University"], ["Built with", "Python, Django, HTML, SQLite"]] },
-    { title: "Hospital Price Transparency Platform", category: "Software", year: "2026", text: "~9 million negotiated prices across all 125 Virginia hospitals, searchable on a map.", img: null, href: "https://atalreja777.github.io/virginia-hospital-price-transparency", linkLabel: "Open the platform" },
+    { title: "Hospital Price Transparency Platform", category: "Software", year: "2026", text: "~9 million negotiated prices across all 125 Virginia hospitals, searchable on a map.", badge: "Working with Rep. Don Beyer’s office on hospital price transparency", img: "assets/projects/hospital-price-platform.jpg", href: "https://atalreja777.github.io/virginia-hospital-price-transparency", external: true },
     { title: "AR PulseGuide", category: "Software", year: "2026", text: "A real-time augmented-reality CPR trainer that corrects your hands as you practice, instead of teaching passively.", img: "assets/projects/arpulse-demo-1.jpg", href: null,
       kicker: "Augmented-reality CPR trainer", role: "Creator",
       body: ["Most people freeze during a cardiac arrest because they are unsure where to put their hands. AR PulseGuide points a phone at a person lying down, finds their body, and shows exactly where each step happens, then grades the rescuer’s real hands in real time."],
@@ -605,7 +656,7 @@ window.SITE = {
     { title: "HeartHealth", category: "Software", year: "2022", text: "A CPR app born in quarantine. Winner of Rep. Don Beyer’s 2022 Congressional App Challenge (VA-08).", img: "assets/projects/hearthealth-house-of-code.jpg", href: "https://www.congressionalappchallenge.us/22-VA08/", linkLabel: "See our Congressional App Challenge winner page", yt: "CXremFhURvM",
       role: "", kicker: "Congressional App Challenge winner",
       body: [
-        "The why: a neighbor of ours died after a cardiac arrest because emergency help came too late. Her death was preventable with proper CPR and an AED nearby, and that is why I started running CPR and AED trainings at Longfellow Middle School.",
+        "The why: when Gwyneth, my neighbor, went into cardiac arrest at school, no one knew CPR, and she suffered a fatal anoxic brain injury. My family did not want her story to repeat itself, and that is why I started running CPR and AED trainings at Longfellow Middle School.",
         "Then quarantine hit and the trainings stopped. Even though I couldn’t hold them in person, it opened up new paths: the chance to scale my audience to more communities through new methods. I used that time to teach myself mobile app development in JavaScript and React.",
         "HeartHealth was the result: a rudimentary app with a focus on CPR intervention, built around an open-source AED database, an emergency CPR walkthrough, and a CPR education platform.",
         "Rep. Don Beyer selected HeartHealth as the winner of his 2022 Congressional App Challenge for Virginia’s 8th District, and we presented it at #HouseOfCode in Washington, D.C., answering questions about the app’s purpose, how I picked up app development in quarantine, and how we built it in React.",

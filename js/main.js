@@ -45,51 +45,89 @@
   /* ------------------------------------------------------------------ */
   /* Intro, numbers, about, recognition, contact                        */
   /* ------------------------------------------------------------------ */
-  // Hero: photos crossfade on a timer; click the photo or use the arrows to move
+  // Hero: a collage. Photos drop onto a loose pile, tilted and overlapping,
+  // so a handful of interests are on screen at once; the oldest one fades away.
   function renderHero(slides) {
     const hero = $(".js-hero");
     if (!slides.length) { hero.innerHTML = `<div class="media"></div>`; return; }
-    hero.innerHTML = `<div class="media hero">${slides
-      .map((s, i) => `<img class="hero__slide${i ? "" : " is-on"}" src="${esc(s.src)}" alt="${esc(s.cap || "")}" style="object-position:${esc(s.pos || "50% 50%")}${s.fit ? `;object-fit:${esc(s.fit)};background:#fff` : ""}"${i ? ` loading="lazy"` : ""}>`)
-      .join("")}<span class="hero__bar" aria-hidden="true"></span></div>
+    hero.innerHTML = `<div class="media hero collage" role="img" aria-label="Collage of photos"><span class="hero__bar" aria-hidden="true"></span></div>
       <figcaption class="hero__foot">
-        <span class="hero__cap" aria-live="polite">${t(slides[0].cap)}</span>
+        <span class="hero__cap" aria-live="polite"></span>
         ${slides.length > 1 ? `<span class="hero__nav"><button type="button" data-d="-1" aria-label="Previous photo">&larr;</button><button type="button" data-d="1" aria-label="Next photo">&rarr;</button></span>` : ""}
       </figcaption>`;
-    if (slides.length < 2) return;
+    const frame = $(".collage", hero), cap = $(".hero__cap", hero), bar = $(".hero__bar", hero);
+    const HOLD = 800;
+    const small = () => frame.clientWidth < 700;
+    const MAX = () => (small() ? 5 : 7);
+    // spread drops across the width so the pile never bunches up on one side
+    const XS = [0.2, 0.7, 0.45, 0.88, 0.12, 0.58, 0.32, 0.8];
+    const sizes = new Map();
+    const load = (s) => sizes.has(s.src) ? Promise.resolve(sizes.get(s.src)) : new Promise((res) => {
+      const im = new Image();
+      im.onload = () => { const r = im.naturalWidth / im.naturalHeight || 1.33; sizes.set(s.src, r); res(r); };
+      im.onerror = () => res(1.33);
+      im.src = s.src;
+    });
+    let cur = -1, drop = 0, z = 1, timer = null, paused = false;
 
-    const imgs = $$(".hero__slide", hero), cap = $(".hero__cap", hero), bar = $(".hero__bar", hero);
-    const HOLD = 3500;
-    let cur = 0, timer = null, paused = false;
+    const place = async (i) => {
+      const s = slides[i], r = await load(s);
+      const W = frame.clientWidth, H = frame.clientHeight;
+      let w = W * (r < 1 ? (small() ? 0.4 : 0.23) : (small() ? 0.6 : 0.42));
+      let h = w / r;
+      if (h > H * 0.86) { h = H * 0.86; w = h * r; }
+      const pad = 10;
+      const x = Math.min(Math.max(XS[drop % XS.length] * W, w / 2 + pad), W - w / 2 - pad);
+      const y = h / 2 + pad + Math.random() * Math.max(0, H - h - pad * 2);
+      drop++;
+      const card = document.createElement("figure");
+      card.className = "hero__card";
+      card.style.cssText = `width:${(w / W) * 100}%;left:${((x - w / 2) / W) * 100}%;top:${((y - h / 2) / H) * 100}%;z-index:${z++};--r:${(Math.random() * 10 - 5).toFixed(1)}deg`;
+      card.innerHTML = `<img src="${esc(s.src)}" alt="${esc(s.cap || "")}" style="aspect-ratio:${r}">`;
+      frame.insertBefore(card, bar);
+      cap.innerHTML = t(s.cap);
+      void card.offsetWidth; // commit the start state so the drop animates
+      card.classList.add("is-in");
+      const cards = $$(".hero__card", frame);
+      cards.slice(0, Math.max(0, cards.length - MAX())).forEach((c) => {
+        if (c.classList.contains("is-out")) return;
+        c.classList.add("is-out");
+        setTimeout(() => c.remove(), 400);
+      });
+    };
     const go = (n) => {
-      imgs[cur].classList.remove("is-on");
-      cur = (n + imgs.length) % imgs.length;
-      imgs[cur].classList.add("is-on");
-      cap.innerHTML = t(slides[cur].cap);
+      cur = (n + slides.length) % slides.length;
+      place(cur);
       restart();
     };
     const restart = () => {
       clearTimeout(timer);
       bar.classList.remove("is-run"); void bar.offsetWidth;
-      if (paused || reduce) return;
+      if (paused || reduce || slides.length < 2) return;
       bar.style.animationDuration = HOLD + "ms";
       bar.classList.add("is-run");
       timer = setTimeout(() => go(cur + 1), HOLD);
     };
     const pause = (v) => { paused = v; restart(); };
-    $(".media", hero).addEventListener("click", () => go(cur + 1));
-    $(".hero__nav", hero).addEventListener("click", (e) => { const b = e.target.closest("button"); if (b) go(cur + +b.dataset.d); });
+    // fill the pile on load, then keep dropping
+    const first = Math.min(MAX() - 1, slides.length);
+    (async () => {
+      for (let k = 0; k < first; k++) { cur = k; await place(k); await new Promise((r) => setTimeout(r, reduce ? 0 : 80)); }
+      restart();
+    })();
+    frame.addEventListener("click", () => go(cur + 1));
+    const nav = $(".hero__nav", hero);
+    if (nav) nav.addEventListener("click", (e) => { const b = e.target.closest("button"); if (b) go(cur + +b.dataset.d); });
     hero.addEventListener("mouseenter", () => pause(true));
     hero.addEventListener("mouseleave", () => pause(false));
     document.addEventListener("visibilitychange", () => pause(document.hidden));
-    restart();
   }
 
   function renderTop() {
     const p = S.person;
     renderHero(p.heroSlides || []);
     $(".js-intro-links").innerHTML =
-      `<a class="lnk" href="#work" data-scroll>See my work</a><a class="lnk" href="#timeline" data-scroll>Timeline</a><a class="lnk" href="#contact" data-scroll>Get in touch</a>` +
+      `<a class="lnk" href="#projects" data-scroll>See my projects</a><a class="lnk" href="#timeline" data-scroll>Timeline</a><a class="lnk" href="#contact" data-scroll>Get in touch</a>` +
       (p.resume ? `<a class="lnk" href="${esc(p.resume)}" target="_blank" rel="noopener">Résumé</a>` : `<span class="ph" title="Add person.resume in js/content.js">Résumé</span>`);
 
 
@@ -127,20 +165,31 @@
   }
 
   /* ------------------------------------------------------------------ */
-  /* Work: staggered two-column grid                                     */
+  /* CPR & Gwyneth's Gift: the story from training to technology         */
   /* ------------------------------------------------------------------ */
-  function renderWork() {
-    $(".js-work").innerHTML = S.activities
-      .map((a) => {
-        const cover = a.media[0];
-        return `<a class="card" href="#view/${a.id}">
-          <div class="card__media${cover ? "" : " is-empty"}">${cover ? `<img src="${esc(thumb(cover))}" alt="" loading="lazy" decoding="async">` : `<span>Cover photo<br>${esc(slotPath(a, 0))}</span>`}</div>
-          <div class="card__cap"><span class="card__title">${t(a.title)}</span><span class="card__role">${t(a.kicker)}</span></div>
-          ${a.summary ? `<p class="card__sum">${t(a.summary)}</p>` : ""}
-          <span class="card__more lnk">${a.media.length ? `View ${a.media.length} photos & story` : "Open"}</span>
-        </a>`;
+  function renderCpr() {
+    const C = S.cpr;
+    if (!C) return;
+    $(".js-cpr-title").innerHTML = t(C.title);
+    $(".js-cpr-lead").innerHTML = t(C.lead);
+    $(".js-cpr-stats").innerHTML = C.stats.map(([n, l]) => `<div><dt>${t(n)}</dt><dd>${t(l)}</dd></div>`).join("");
+    const pics = C.steps.filter((x) => x.img).map((x) => ({ src: x.img, cap: x.cap || clean(x.title) }));
+    let last = "";
+    $(".js-cpr-steps").innerHTML = C.steps
+      .map((x) => {
+        const phase = x.phase !== last ? (last = x.phase) : "";
+        const link = x.link ? `<a class="cpr-step__link lnk" href="${esc(x.link.href)}"${x.link.external ? ' target="_blank" rel="noopener"' : ""}>${esc(x.link.label)} ${x.link.external ? "↗" : "→"}</a>` : "";
+        return `<li class="cpr-step${x.story ? " cpr-step--story" : ""}${x.img ? "" : " cpr-step--noimg"}">
+          <p class="cpr-step__side">${phase ? `<span class="cpr-step__phase">${t(phase)}</span>` : ""}<span class="cpr-step__when">${t(x.when)}</span></p>
+          <div class="cpr-step__body"><h3 class="cpr-step__title">${t(x.title)}</h3><p class="cpr-step__text">${t(x.text)}</p>${link}</div>
+          ${x.img ? `<button class="cpr-step__img${x.contain ? " is-contain" : ""}" type="button" data-k="${pics.findIndex((p) => p.src === x.img)}" aria-label="Enlarge: ${esc(x.cap || clean(x.title))}"><img src="${esc(x.img)}" alt="${esc(x.cap || "")}" loading="lazy" decoding="async"></button>` : ""}
+        </li>`;
       })
       .join("");
+    $(".js-cpr-steps").addEventListener("click", (e) => {
+      const b = e.target.closest(".cpr-step__img");
+      if (b) openLightbox(pics, +b.dataset.k, b);
+    });
   }
 
   /* ------------------------------------------------------------------ */
@@ -336,8 +385,9 @@
       cats.map((c) => `<button type="button" data-cat="${esc(c)}" aria-pressed="false">${esc(c)}<sup>${S.projects.filter((p) => p.category === c).length}</sup></button>`).join("");
     $(".js-proj-list").innerHTML = S.projects
       .map((p, i) => `<li class="prow" data-cat="${esc(p.category)}">
-          <a href="${p.external ? esc(p.href) : `#view/p${i + 1}`}"${p.external ? ' target="_blank" rel="noopener"' : ""} ${p.img ? `data-img="${esc(p.img)}"` : ""}>
-            <span class="prow__title">${t(p.title)}<span class="prow__text">${t(p.text)}</span></span>
+          <a href="${p.external ? esc(p.href) : `#view/p${i + 1}`}"${p.external ? ' target="_blank" rel="noopener"' : ""}>
+            <span class="prow__thumb${p.img && !p.tile ? "" : " prow__thumb--type"}">${p.img && !p.tile ? `<img src="${esc(p.img)}" alt="" loading="lazy" decoding="async"${p.thumbPos ? ` style="object-position:${esc(p.thumbPos)}"` : ""}>` : `<span>${t(p.tile || p.category)}</span>`}</span>
+            <span class="prow__title">${t(p.title)}<span class="prow__text">${t(p.text)}</span>${p.badge ? `<span class="prow__badge">${t(p.badge)}</span>` : ""}</span>
             <span class="prow__cat">${esc(p.category)}</span>
             <span class="prow__year">${t(p.year)}</span>
             <span class="prow__arrow" aria-hidden="true">${p.external ? "↗" : "→"}</span>
@@ -349,43 +399,6 @@
       $$(".js-proj-filters button").forEach((c) => c.setAttribute("aria-pressed", String(c === b)));
       $$(".prow").forEach((r) => r.classList.toggle("is-hidden", b.dataset.cat !== "all" && r.dataset.cat !== b.dataset.cat));
     });
-  }
-
-  function hoverPreview() {
-    const prev = $(".preview");
-    const img = $("img", prev);
-    if (!fine || !hasGsap) return;
-    const qx = gsap.quickTo(prev, "x", { duration: 0.6, ease: "power3" });
-    const qy = gsap.quickTo(prev, "y", { duration: 0.6, ease: "power3" });
-    let px = -1, py = -1, active = null;
-    const show = (el) => {
-      if (el === active) return;
-      active = el;
-      img.src = el.dataset.img;
-      gsap.to(prev, { opacity: 1, scale: 1, duration: 0.4, ease: "power3.out", overwrite: true });
-    };
-    const hide = () => {
-      if (!active) return;
-      active = null;
-      gsap.to(prev, { opacity: 0, scale: 0.92, duration: 0.25, overwrite: true });
-    };
-    // check what is actually under the pointer: the row can scroll away
-    // from a still cursor, and clicks open pages, without any mouseleave
-    const check = () => {
-      if (px < 0 || !page.hidden || !lb.hidden) return hide();
-      const under = document.elementFromPoint(px, py);
-      const el = under && under.closest("[data-img]");
-      el ? show(el) : hide();
-    };
-    window.addEventListener("mousemove", (e) => { px = e.clientX; py = e.clientY; qx(px + 170); qy(py); check(); });
-    window.addEventListener("scroll", check, { passive: true });
-    document.addEventListener("mouseleave", () => { px = -1; hide(); });
-    document.addEventListener("click", hide);
-    window.addEventListener("hashchange", hide);
-    window.addEventListener("blur", () => { px = -1; hide(); });
-    document.addEventListener("visibilitychange", hide);
-    // safety net while visible: layout can shift (filters, "show all") with no event at all
-    gsap.ticker.add(() => active && check());
   }
 
   /* ------------------------------------------------------------------ */
@@ -577,7 +590,7 @@
       gsap.ticker.lagSmoothing(0);
     }
 
-    ["about", "work", "tennis", "gallery", "timeline", "projects", "contact"].forEach((id) =>
+    ["about", "cpr", "projects", "tennis", "timeline", "gallery", "projects", "contact"].forEach((id) =>
       ScrollTrigger.create({ trigger: "#" + id, start: "top 40%", end: "bottom 40%", onToggle: (st) => $(`.nav__links a[href="#${id}"]`).classList.toggle("is-active", st.isActive) })
     );
     if (reduce) return;
@@ -589,19 +602,18 @@
 
     // everything else fades up as it arrives
     const fade = (sel) => $$(sel).forEach((el) => gsap.from(el, { y: 36, opacity: 0, duration: 1, ease: "power3.out", scrollTrigger: { trigger: el, start: "top 88%" } }));
-    fade(".intro__text, .intro__links, .about__portrait, .about__body > *, .with__list, .head, .card, .journey__lead, .tl-item, .prow, .words, .contact > *");
+    fade(".intro__text, .intro__links, .about__portrait, .about__body > *, .with__list, .head, .card, .journey__lead, .cpr__lead, .cpr__stats > div, .cpr-step, .tl-item, .prow, .words, .contact > *");
 
   }
 
   /* ------------------------------------------------------------------ */
   renderTop();
-  renderWork();
+  renderCpr();
   renderJourney();
   renderGallery();
   renderTimeline();
   renderProjects();
   motion();
-  hoverPreview();
   window.addEventListener("load", () => window.ScrollTrigger && ScrollTrigger.refresh());
   if (location.hash.startsWith("#view/")) route();
 })();

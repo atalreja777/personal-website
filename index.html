@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Aboreto&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;1,6..72,300;1,6..72,400&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=1791250000">
+  <link rel="stylesheet" href="css/style.css?v=1791280000">
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
@@ -21,11 +21,11 @@
     <span class="nav__line" aria-hidden="true"></span>
     <div class="nav__links">
       <a href="#about" data-scroll>About</a>
-      <a href="#work" data-scroll>Work</a>
-      <a href="#tennis" data-scroll>Tennis</a>
-      <a href="#gallery" data-scroll>Gallery</a>
-      <a href="#timeline" data-scroll>Timeline</a>
+      <a href="#cpr" data-scroll>CPR</a>
       <a href="#projects" data-scroll>Projects</a>
+      <a href="#tennis" data-scroll>Tennis</a>
+      <a href="#timeline" data-scroll>Timeline</a>
+      <a href="#gallery" data-scroll>Gallery</a>
       <a href="#contact" data-scroll>Contact</a>
     </div>
     <span class="nav__line" aria-hidden="true"></span>
@@ -49,19 +49,30 @@
       </div>
     </section>
 
+    <!-- CPR & GWYNETH'S GIFT -->
+    <section class="cpr" id="cpr">
+      <header class="head">
+        <h2 class="head__title js-cpr-title"></h2>
+        <a class="head__note lnk" href="#timeline" data-scroll>Full detail in the timeline</a>
+      </header>
+      <p class="cpr__lead js-cpr-lead"></p>
+      <dl class="cpr__stats js-cpr-stats"></dl>
+      <ol class="cpr__steps js-cpr-steps"></ol>
+    </section>
+
     <!-- WORKING WITH -->
     <section class="with">
       <h2 class="tag tag--center">Teams, programs &amp; recognition</h2>
       <ul class="with__list js-rec"></ul>
     </section>
 
-    <!-- WORK -->
-    <section class="work" id="work">
+    <!-- PROJECTS -->
+    <section class="projects" id="projects">
       <header class="head">
-        <h2 class="head__title">Work</h2>
-        <p class="head__note js-work-note"></p>
+        <h2 class="head__title">Projects &amp; Research</h2>
+        <div class="filters js-proj-filters" role="group" aria-label="Filter projects"></div>
       </header>
-      <div class="work__grid js-work"></div>
+      <ol class="plist js-proj-list"></ol>
     </section>
 
     <!-- TENNIS JOURNEY -->
@@ -77,15 +88,6 @@
       <ol class="journey__track js-jr" data-lenis-prevent-horizontal></ol>
     </section>
 
-    <!-- GALLERY -->
-    <section class="gallery" id="gallery">
-      <header class="head">
-        <h2 class="head__title">Gallery</h2>
-        <div class="filters js-gal-filters" role="group" aria-label="Filter photos"></div>
-      </header>
-      <div class="gallery__grid js-gallery"></div>
-    </section>
-
     <!-- TIMELINE -->
     <section class="timeline" id="timeline">
       <header class="head">
@@ -95,13 +97,13 @@
       <ol class="tl js-tl"></ol>
     </section>
 
-    <!-- PROJECTS -->
-    <section class="projects" id="projects">
+    <!-- GALLERY -->
+    <section class="gallery" id="gallery">
       <header class="head">
-        <h2 class="head__title">Projects &amp; Research</h2>
-        <div class="filters js-proj-filters" role="group" aria-label="Filter projects"></div>
+        <h2 class="head__title">Gallery</h2>
+        <div class="filters js-gal-filters" role="group" aria-label="Filter photos"></div>
       </header>
-      <ol class="plist js-proj-list"></ol>
+      <div class="gallery__grid js-gallery"></div>
     </section>
 
 
@@ -117,8 +119,6 @@
       <p class="foot"><span>© <span class="js-year"></span> Arnav Talreja</span><a href="#top" data-scroll>Back to top</a></p>
     </section>
   </main>
-
-  <div class="preview" aria-hidden="true"><img alt=""></div>
 
   <!-- DETAIL PAGE -->
   <div class="detail" role="dialog" aria-modal="true" aria-labelledby="detail-title" hidden>
@@ -136,8 +136,8 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
-  <script src="js/content.js?v=1791250000"></script>
-  <script src="js/figures.js?v=1791250000"></script>
-  <script src="js/main.js?v=1791250000"></script>
+  <script src="js/content.js?v=1791280000"></script>
+  <script src="js/figures.js?v=1791280000"></script>
+  <script src="js/main.js?v=1791280000"></script>
 </body>
 </html>
