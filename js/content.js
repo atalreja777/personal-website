@@ -47,11 +47,19 @@ window.SITE = {
     heroSlides: [
       { src: "assets/ftc/states-team.jpg", cap: "FTC 14607 Robot Uprising at the Chesapeake State Championship", pos: "50% 35%" },
       { src: "assets/tennis/04-first-win.jpg", cap: "My first tournament win, with coaches Farshad Garakani and Michael Harper", pos: "55% 35%" },
-      { src: "assets/econ/va-state-champions.jpg", cap: "Virginia State Champions, National Economics Challenge", pos: "45% 60%" },
+      { src: "assets/early/first-tennis-trophy.jpg", cap: "An early tennis trophy", pos: "50% 35%" },
+      { src: "assets/econ/va-state-champions.jpg", cap: "With our teacher after winning the Virginia Economics Challenge", pos: "45% 60%" },
+      { src: "assets/early/infinite-overload.jpg", cap: "Team Infinite Overload, my first FTC team", pos: "50% 40%" },
+      { src: "assets/early/meeting-a-pro.jpg", cap: "Meeting a tour pro after his match", pos: "50% 35%" },
       { src: "assets/projects/hearthealth-house-of-code.jpg", cap: "Presenting HeartHealth at #HouseOfCode in Washington, D.C.", pos: "55% 40%" },
+      { src: "assets/early/jhu-cty.jpg", cap: "Johns Hopkins Center for Talented Youth awards ceremony", pos: "50% 45%" },
       { src: "assets/cpr/temple-compressions.jpg", cap: "Hands-only CPR training with Gwyneth’s Gift", pos: "50% 60%" },
+      { src: "assets/early/swim-meet.jpg", cap: "Swim meet ribbons", pos: "50% 55%" },
+      { src: "assets/tennis/tournament-award.jpg", cap: "Tournament award", pos: "50% 45%" },
       { src: "assets/projects/ar-glasses-assembled.jpg", cap: "The AR glasses I’m building for AR PulseGuide", fit: "contain" },
+      { src: "assets/early/robotics-awards.jpg", cap: "Award day at a robotics competition", pos: "50% 50%" },
       { src: "assets/fll/fll-team.jpg", cap: "Where it started: FIRST LEGO League", pos: "50% 40%" },
+      { src: "assets/early/skiing.jpg", cap: "On the slopes", pos: "50% 40%" },
       { src: "assets/gur/aymsummercampgroup.jpg", cap: "A Growing Up with Robotics summer camp", pos: "50% 50%" },
     ],
     email: "arnavt777@gmail.com",
@@ -186,9 +194,70 @@ window.SITE = {
       { when: "Every season", title: "Under the lights", text: "Practice didn't stop when the sun went down.", src: "assets/tennis/05-night-practice.jpg", pos: "20% 45%" },
       { when: "Growing up", title: "Building a forehand", text: "Hours of drilling the forehand, one basket of balls at a time.", src: "assets/tennis/06-indoor-forehand.jpg", pos: "40% 50%" },
       { when: "Summer 2023", title: "Hard courts", text: "Long summer sessions on outdoor courts.", video: "assets/tennis/07-summer-outdoors.mp4", src: "assets/tennis/07-summer-outdoors-poster.jpg" },
+      { when: "May 2024", title: "Region & District Champion", text: "Won the District and Regional singles titles as a freshman, taking the region final over Woodson's Ryan Battaglia 11-9 in the deciding tiebreak.", src: "assets/tennis/region-champion-2024.jpg", pos: "50% 35%", link: { label: "tjTODAY story", href: "https://www.tjtoday.org/38280/sports/freshman-arnav-talreja-secures-regional-singles-tennis-title/" } },
+      { when: "June 2024", title: "Washington Post All-Met", text: "Named to the Washington Post's Spring All-Met boys' tennis team as a freshman.", src: "assets/tennis/allmet-2024.jpg", pos: "50% 30%", link: { label: "2024 All-Met list", href: "https://www.washingtonpost.com/sports/2024/06/20/boys-tennis-all-met/" } },
+      { when: "May 2025", title: "Region & District Champion, again", text: "Defended both the District and Regional singles titles, then reached the VHSL Class 6 state finals in singles and in doubles with Jonah Treitler.", src: null, panel: { top: "Varsity Singles", big: "2025", lines: ["District Champion", "Region Champion", "State Finalist, Class 6"] }, link: { label: "2025 state results", href: "https://cardinalnews.org/2025/06/09/vhsl-state-tournament-schedule-for-tennis/" } },
+      { when: "June 2025", title: "Washington Post All-Met, again", text: "Named to the Washington Post's Spring All-Met boys' tennis team for the second straight year.", src: null, panel: { top: "The Washington Post", big: "All-Met", lines: ["Spring 2025", "Boys’ Tennis", "Second straight year"] }, link: { label: "2025 All-Met list", href: "https://www.washingtonpost.com/sports/2025/06/27/boys-tennis-all-met-2025/" } },
       { when: "Now", title: "Still on court", text: "Varsity captain and #1 singles at TJ, with a 10 UTR and 4-star recruit status.", video: "assets/tennis/08-training-now.mp4", src: "assets/tennis/08-training-now-poster.jpg" },
     ],
   },
+
+  /* ---------------------------------------------------------------------
+     GALLERY — grouped photos. Any photo already used in the timeline
+     is skipped automatically, so nothing shows up twice.
+     wide: true spans two columns.
+     --------------------------------------------------------------------- */
+  gallery: [
+    { id: "early", title: "Growing up", media: [
+      { src: "assets/early/first-tennis-trophy.jpg", cap: "An early tennis trophy" },
+      { src: "assets/early/meeting-a-pro.jpg", cap: "Meeting a tour pro" },
+      { src: "assets/early/jhu-cty.jpg", cap: "Johns Hopkins CTY awards ceremony", wide: true },
+      { src: "assets/early/swim-meet.jpg", cap: "Swim meet ribbons" },
+      { src: "assets/early/skiing.jpg", cap: "On the slopes" },
+      { src: "assets/fll/fll-team.jpg", cap: "FIRST LEGO League" },
+    ] },
+    { id: "ftc", title: "Robot Uprising", media: [
+      { src: "assets/ftc/robot-demo.jpg", cap: "Showing kids the robot up close", wide: true },
+      { src: "assets/ftc/driver-practice.jpg", cap: "Driver practice" },
+      { src: "assets/ftc/strategy-whiteboard.jpg", cap: "Strategy on the whiteboard" },
+      { src: "assets/ftc/late-night-build.jpg", cap: "Late-night build" },
+      { src: "assets/ftc/mentors-presenting.jpg", cap: "Presenting to the community", wide: true },
+      { src: "assets/ftc/outreach-board.jpg", cap: "Outreach board" },
+      { src: "assets/ftc/outreach-event.jpg", cap: "STEM night outreach" },
+      { src: "assets/ftc/robot-lab.jpg", cap: "In the robotics lab" },
+    ] },
+    { id: "gur", title: "Growing Up with Robotics", media: [
+      { src: "assets/gur/img_6799.jpg", cap: "First robot builds", wide: true },
+      { src: "assets/gur/flltutor.jpg", cap: "FLL team we tutor" },
+      { src: "assets/gur/img_6796.jpg", cap: "Building with LEGO SPIKE" },
+      { src: "assets/gur/gur_5eff0633.jpg", cap: "Teaching a class" },
+      { src: "assets/gur/img_6853.jpg", cap: "Testing robots together" },
+      { src: "assets/gur/img_6872.jpg", cap: "Camp check-in", wide: true },
+      { src: "assets/gur/gur_9c2d6025.jpg", cap: "Hands-on build session" },
+      { src: "assets/gur/img_6248.jpg", cap: "Sorting parts" },
+      { src: "assets/gur/img_6792.jpg", cap: "Coding the robots" },
+      { src: "assets/gur/img_6908.jpg", cap: "Debugging with campers" },
+      { src: "assets/gur/aymsummercamp.jpg", cap: "Camp kickoff" },
+      { src: "assets/gur/guestspeaker.jpg", cap: "Guest speaker session", wide: true },
+      { src: "assets/gur/img_6267.jpg", cap: "One-on-one help" },
+      { src: "assets/gur/img_6821.jpg", cap: "Robot ready for the challenge" },
+      { src: "assets/gur/img_9084.jpg", cap: "Online class prep" },
+    ] },
+    { id: "cpr", title: "CPR", media: [
+      { src: "assets/cpr/temple-demo.jpg", cap: "Community CPR training at a local temple", wide: true },
+      { src: "assets/cpr/fcps-gwyneths-gift.jpg", cap: "The Longfellow students meet Gwyneth’s Gift (photo: FCPS)" },
+    ] },
+    { id: "tennis", title: "Tennis", media: [
+      { src: "assets/tennis/tournament-award.jpg", cap: "Tournament award" },
+      { src: "assets/tennis/05-night-practice.jpg", cap: "Under the lights" },
+      { src: "assets/tennis/06-indoor-forehand.jpg", cap: "Building a forehand" },
+      { type: "video", src: "assets/tennis/07-summer-outdoors.mp4", poster: "assets/tennis/07-summer-outdoors-poster.jpg", cap: "Summer hard courts" },
+      { type: "video", src: "assets/tennis/02-indoor-lessons.mp4", poster: "assets/tennis/02-indoor-lessons-poster.jpg", cap: "Indoor lessons" },
+    ] },
+    { id: "econ", title: "Economics", media: [
+      { src: "assets/econ/va-state-champions.jpg", cap: "With our teacher, Virginia Economics Challenge champions", wide: true },
+    ] },
+  ],
 
   /* ---------------------------------------------------------------------
      TIMELINE — sorted automatically by date ("YYYY" or "YYYY-MM").
@@ -209,7 +278,7 @@ window.SITE = {
       "Placed 5th in the nation",
     ],
     link: { label: "2026 national finalists (Council for Economic Education)", href: "https://www.councilforeconed.org/congratulations-to-our-2026-national-economic-challenge-finalists/" } },
-    { date: "2026-04", type: "award", title: "Virginia State Champion", org: "National Economics Challenge", place: "Federal Reserve Bank of Richmond", img: "assets/econ/va-state-champions.jpg", imgPos: "45% 60%",
+    { date: "2026-04", type: "award", title: "Virginia State Champion", org: "National Economics Challenge", place: "Federal Reserve Bank of Richmond", img: "assets/econ/fed-reserve-richmond.jpg", imgPos: "50% 70%",
     points: [
       "Won the 2026 Virginia Economics Challenge, Adam Smith Division, as Team Economic Explorers",
       "Qualified to represent Virginia at the national finals",
@@ -286,9 +355,11 @@ window.SITE = {
       "Competes year-round in USTA junior tournaments, earning a 10 UTR (Universal Tennis Rating) and 4-star college recruit status",
       "Coaches younger players and strings racquets to fund USTA tournament and travel expenses",
     ] },
-    { date: "2025", type: "award", title: "VHSL State Finalist", org: "Virginia High School League", place: "Virginia",
+    { date: "2025-06", type: "award", title: "VHSL State Finalist", org: "Virginia High School League", place: "Newport News, VA",
+    link: { label: "2025 VHSL state tennis results (Cardinal News)", href: "https://cardinalnews.org/2025/06/09/vhsl-state-tournament-schedule-for-tennis/" },
     points: [
-      "Reached the 2025 VHSL state final; 2x VHSL state semifinalist",
+      "Reached both 2025 VHSL Class 6 state finals: runner-up in singles, and runner-up in doubles with Jonah Treitler",
+      "2x VHSL state semifinalist",
       "Named Washington Post All-Met in 2024 and 2025",
       "2x VHSL Class 6 All-State, 2x All-Region, 3x District Player of the Year and Varsity MVP",
     ] },
@@ -434,6 +505,8 @@ window.SITE = {
     highlight: "In March 2025, three Longfellow eighth graders used the CPR they learned in these trainings to save a classmate’s father after he went into cardiac arrest on a Scouts trip. His chance of survival was about 5%, but because they started CPR in time, he is fine today.",
     link: { label: "Read the FCPS story", href: "https://longfellowms.fcps.edu/node/7369" },
     media: [
+      { src: "assets/cpr/fcps-cpr-story.jpg", cap: "The three Longfellow eighth graders who saved a life with CPR (photo: FCPS)" },
+      { src: "assets/cpr/longfellow-training.jpg", cap: "CPR training at Longfellow Middle School (photo: FCPS)" },
       { type: "video", src: "assets/cpr/temple-compressions.mp4", poster: "assets/cpr/temple-compressions-poster.jpg", cap: "Community CPR training at a local temple" },
       { src: "assets/cpr/temple-compressions.jpg", cap: "Everyone practicing hands-only CPR" },
       { src: "assets/cpr/temple-instructor-banner.jpg", cap: "Learning from a Gwyneth’s Gift instructor" },
@@ -456,6 +529,17 @@ window.SITE = {
       "Started FIRST LEGO League as a way to explore robots and how to program their behaviors",
       "Built, coded and ran LEGO robots through timed competition missions",
       "Learned the foundations of design, programming and teamwork later built on in FTC",
+    ] },
+    { date: "[2021]", type: "robotics", title: "Team Member", org: "FTC Team Infinite Overload", place: "Northern Virginia",
+    points: [
+      "Moved up from FIRST LEGO League to FIRST Tech Challenge with Team Infinite Overload, trading LEGO kits for metal parts, motors and real code",
+      "Started designing and building mechanisms from scratch instead of following the instruction manuals I grew up with",
+      "Learned to sketch an idea, prototype it, test it on the field and rebuild it until it worked",
+      "Competed in FTC qualifiers with the team",
+    ],
+    media: [
+      { src: "assets/early/infinite-overload.jpg", cap: "Team Infinite Overload with our robot and trophy" },
+      { src: "assets/early/robotics-awards.jpg", cap: "Award day with the teams" },
     ] },
     { date: "2023-08", end: "Present", type: "robotics", title: "Captain", org: "FTC 14607 Robot Uprising", place: "TJHSST",
     points: [

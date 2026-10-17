@@ -149,19 +149,22 @@
   function renderJourney() {
     const J = S.tennis;
     if (!J) return;
-    const list = J.chapters.map((c) => (c.video ? { type: "video", src: c.video, poster: c.src, cap: clean(c.title) } : { src: c.src, cap: clean(c.title) }));
+    // chapters without a photo yet show a dashed slot naming the file to add
+    const shown = J.chapters.filter((c) => c.src || c.video);
+    const list = shown.map((c) => (c.video ? { type: "video", src: c.video, poster: c.src, cap: clean(c.title) } : { src: c.src, cap: clean(c.title) }));
     $(".js-jr-lead").innerHTML = t(J.lead);
     const track = $(".js-jr");
     track.innerHTML = J.chapters
-      .map((c, i) => `<li class="jr">
-          <button class="jr__media" type="button" data-i="${i}" aria-label="Enlarge: ${esc(clean(c.title))}">
+      .map((c) => `<li class="jr">
+          ${c.src || c.video ? `<button class="jr__media" type="button" data-i="${shown.indexOf(c)}" aria-label="Enlarge: ${esc(clean(c.title))}">
             ${c.video
               ? `<video src="${esc(c.video)}" poster="${esc(c.src)}" muted loop playsinline preload="metadata"></video>`
               : `<img src="${esc(c.src)}" alt="${esc(clean(c.text))}" loading="lazy" decoding="async"${c.pos ? ` style="object-position:${esc(c.pos)}"` : ""}>`}
-          </button>
+          </button>` : c.panel ? `<div class="jr__media jr__panel"><span class="jr__panel-top">${esc(c.panel.top)}</span><span class="jr__panel-big">${esc(c.panel.big)}</span><span class="jr__panel-lines">${c.panel.lines.map((l) => `<span>${esc(l)}</span>`).join("")}</span></div>` : `<div class="jr__media is-empty"><span>Add photo<br>${esc(c.slot || "")}</span></div>`}
           <p class="jr__when"><span class="jr__label">${t(c.when)}</span></p>
           <h3 class="jr__title">${t(c.title)}</h3>
           <p class="jr__text">${t(c.text)}</p>
+          ${c.link ? `<a class="jr__link lnk" href="${esc(c.link.href)}" target="_blank" rel="noopener">${esc(c.link.label)} ↗</a>` : ""}
         </li>`)
       .join("");
     track.addEventListener("click", (e) => {
@@ -190,30 +193,31 @@
   /* ------------------------------------------------------------------ */
   let galleryList = [];
   function renderGallery() {
+    // anything already shown in the timeline stays out of the gallery
+    const used = new Set();
+    S.timeline.forEach((e) => {
+      if (e.img) used.add(e.img);
+      if (e.doc) used.add(e.doc.img);
+      (e.media || []).forEach((m) => { used.add(m.src); if (m.poster) used.add(m.poster); });
+    });
+    const groups = (S.gallery || [])
+      .map((g) => ({ ...g, media: g.media.filter((m) => !used.has(m.src) && !used.has(thumb(m))) }))
+      .filter((g) => g.media.length);
+    // deal groups out round-robin so the wall mixes subjects
     const all = [];
-    S.activities.forEach((a) => a.media.forEach((m) => all.push({ ...m, act: a })));
-    // tennis lives in its own section, but its photos still belong on the wall
-    const tennis = S.tennis ? { id: "tennis", title: "Tennis", media: S.tennis.chapters.map((c) => (c.video ? { type: "video", src: c.video, poster: c.src, cap: clean(c.title) } : { src: c.src, cap: clean(c.title) })) } : null;
-    if (tennis) tennis.media.forEach((m) => all.push({ ...m, act: tennis }));
-    // interleave activities so the wall mixes FTC and GUR
-    for (let i = all.length - 1, s = 14607; i > 0; i--) {
-      s = (s * 1664525 + 1013904223) % 4294967296;
-      const j = s % (i + 1);
-      [all[i], all[j]] = [all[j], all[i]];
-    }
-    const withPhotos = [...S.activities, ...(tennis ? [tennis] : [])].filter((a) => a.media.length);
+    const most = Math.max(0, ...groups.map((g) => g.media.length));
+    for (let k = 0; k < most; k++) groups.forEach((g) => g.media[k] && all.push({ ...g.media[k], act: g }));
     $(".js-gal-filters").innerHTML =
       `<button type="button" data-f="all" aria-pressed="true">All<sup>${all.length}</sup></button>` +
-      withPhotos.map((a) => `<button type="button" data-f="${a.id}" aria-pressed="false">${esc(clean(a.title))}<sup>${a.media.length}</sup></button>`).join("");
+      groups.map((a) => `<button type="button" data-f="${a.id}" aria-pressed="false">${esc(clean(a.title))}<sup>${a.media.length}</sup></button>`).join("");
 
-    const LIMIT = 15;
+    const LIMIT = 12;
     let filter = "all", expanded = false;
     const grid = $(".js-gallery");
     grid.innerHTML = all
-      .map((m, i) => `<button class="shot" type="button" data-i="${i}" data-act="${m.act.id}" aria-label="Enlarge: ${esc(m.cap || "photo")}">
-        <img src="${esc(thumb(m))}" alt="" loading="lazy" decoding="async">
-        
-        <span class="shot__cap">${esc(m.cap || "")}</span></button>`)
+      .map((m, i) => `<button class="shot${m.wide ? " shot--wide" : ""}" type="button" data-i="${i}" data-act="${m.act.id}" aria-label="Enlarge: ${esc(m.cap || "photo")}">
+        <span class="shot__img"><img src="${esc(thumb(m))}" alt="" loading="lazy" decoding="async">${m.type === "video" ? '<span class="shot__vid">Video</span>' : ""}</span>
+        <span class="shot__label"><span>${esc(m.cap || "")}</span><span>${esc(clean(m.act.title))}</span></span></button>`)
       .join("");
     const more = document.createElement("button");
     more.type = "button";
