@@ -359,6 +359,8 @@
     id: `p${i + 1}`,
     isProject: true,
     external: p.external,
+    page: p.page,
+    static: p.static,
     title: p.title,
     kicker: p.kicker || p.category,
     role: p.role === undefined ? "[Your role]" : p.role,
@@ -385,12 +387,12 @@
       cats.map((c) => `<button type="button" data-cat="${esc(c)}" aria-pressed="false">${esc(c)}<sup>${S.projects.filter((p) => p.category === c).length}</sup></button>`).join("");
     $(".js-proj-list").innerHTML = S.projects
       .map((p, i) => `<li class="prow" data-cat="${esc(p.category)}">
-          <a href="${p.external ? esc(p.href) : `#view/p${i + 1}`}"${p.external ? ' target="_blank" rel="noopener"' : ""}>
+          <a${p.static ? ' class="is-static"' : ` href="${p.page ? esc(p.page) : p.external ? esc(p.href) : `#view/p${i + 1}`}"`}${p.external ? ' target="_blank" rel="noopener"' : ""}>
             <span class="prow__thumb${p.img && !p.tile ? "" : " prow__thumb--type"}">${p.img && !p.tile ? `<img src="${esc(p.img)}" alt="" loading="lazy" decoding="async"${p.thumbPos ? ` style="object-position:${esc(p.thumbPos)}"` : ""}>` : `<span>${t(p.tile || p.category)}</span>`}</span>
-            <span class="prow__title">${t(p.title)}<span class="prow__text">${t(p.text)}</span>${p.badge ? `<span class="prow__badge">${t(p.badge)}</span>` : ""}</span>
+            <span class="prow__title">${t(p.title)}<span class="prow__text">${t(p.text)}</span>${p.badge ? `<span class="prow__badge">${t(p.badge)}</span>` : ""}${p.credit ? `<span class="prow__credit">${t(p.credit)}</span>` : ""}</span>
             <span class="prow__cat">${esc(p.category)}</span>
             <span class="prow__year">${t(p.year)}</span>
-            <span class="prow__arrow" aria-hidden="true">${p.external ? "↗" : "→"}</span>
+            <span class="prow__arrow" aria-hidden="true">${p.static ? "" : p.external ? "↗" : "→"}</span>
           </a></li>`)
       .join("");
     $(".js-proj-filters").addEventListener("click", (ev) => {
@@ -409,7 +411,7 @@
   const pageInner = $(".js-detail-inner");
   let current = null, returnFocus = null, lenis = null;
 
-  const projectPages = () => S.projects.map(projectPage).filter((r) => !r.external);
+  const projectPages = () => S.projects.map(projectPage).filter((r) => !r.external && !r.page && !r.static);
   const pages = () => [...S.activities, ...projectPages()];
   const siblings = (r) => (r.isProject ? projectPages() : S.activities);
   const mediaEl = (m, autoplay) =>
