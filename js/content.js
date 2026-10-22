@@ -87,7 +87,7 @@ window.SITE = {
     stats: [
       ["10,000+", "Community members trained in CPR"],
       ["1,000+", "Longfellow students trained in CPR every year"],
-      ["1st", "HEARTSafe middle school in Fairfax County Public Schools"],
+      ["1st", "HEARTSafe middle school in Virginia"],
       ["1", "Life saved by students we trained"],
     ],
     steps: [
